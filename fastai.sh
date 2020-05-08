@@ -9,6 +9,7 @@ if [ -f ~/.fastai-zone ]; then
 else
   current_zone='us-west1-b'
 fi
+'#Jeet
 
 declare -A GPUS_IN_ZONES=(
   ["us-central1-c"]="k80 p4 p100"
@@ -36,9 +37,10 @@ declare -A SYSTEM_FOR_GPU=(
   ["v100"]="8cpus, 30GB Ram"
 )
 
+#Jeet'
 test-zone () {
   zone=$1
-  gpu=$2
+#Jeet  gpu=$2
 
   set +e
   count=$(gcloud compute --project=$DEVSHELL_PROJECT_ID instances list | grep -c zone-tester)
@@ -94,6 +96,8 @@ create_disk_from_snapshot () {
   gcloud compute --project=$DEVSHELL_PROJECT_ID disks create fastai-boot-1 --zone=$zone --type=pd-ssd --source-snapshot=fastai-boot-1 --size=50GB
 }
 
+'Jeet
+
 list-zones () {
   echo ""
   echo "Current zone: $current_zone"
@@ -103,6 +107,8 @@ list-zones () {
   done
   echo ""
 }
+
+Jeet'
 
 switch-to () {
   zone=$1
@@ -114,6 +120,8 @@ switch-to () {
     "
     return 1
   fi
+
+'*Jeet
 
   if [[ "${GPUS_IN_ZONES[$zone]}" == "" ]]; then
     echo ""
@@ -129,7 +137,7 @@ switch-to () {
 
     return 1
   fi
-
+Jeet'
   echo "Stop the current instance, if exists"
   stop
 
@@ -307,10 +315,12 @@ start () {
   echo "Run one of the following commands:"
   echo ""
 
+'Jeet
   gpus=(${GPUS_IN_ZONES[$current_zone]})
   for gpu in ${gpus[@]}; do
     echo " * fastai $gpu ($gpu gpu, ${SYSTEM_FOR_GPU[$gpu]} - \$${PRICE_FOR_GPU[$gpu]}/hour)"
   done
+Jeet'
   echo " * fastai nogpu (1cpu, 3.75GB RAM - \$0.02/hour)"
   echo ""
 
@@ -360,7 +370,7 @@ start_instance() {
       --subnet=fastai-net \
       --network-tier=PREMIUM \
       --machine-type=$machine_type \
-      --accelerator="type=$gpu_type,count=1" \
+  #Jeet    --accelerator="type=$gpu_type,count=1" \
       --no-restart-on-failure \
       --maintenance-policy=TERMINATE \
       --disk=name=fastai-boot-1,device-name=fastai-boot-1,mode=rw,boot=yes
