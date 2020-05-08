@@ -9,8 +9,6 @@ if [ -f ~/.fastai-zone ]; then
 else
   current_zone='us-west1-b'
 fi
-'#Jeet
-
 declare -A GPUS_IN_ZONES=(
   ["us-central1-c"]="k80 p4 p100"
   ["us-central1-a"]="k80 p4 v100"
@@ -36,8 +34,6 @@ declare -A SYSTEM_FOR_GPU=(
   ["p100"]="8cpus, 30GB Ram"
   ["v100"]="8cpus, 30GB Ram"
 )
-
-#Jeet'
 test-zone () {
   zone=$1
 #Jeet  gpu=$2
