@@ -69,7 +69,6 @@ create_disk_from_snapshot () {
 }
 
   echo "Stop the current instance, if exists"
-  stop
 
   set +e
   disk_count=$(gcloud compute --project=$DEVSHELL_PROJECT_ID disks list | grep -c fastai-boot-1)
