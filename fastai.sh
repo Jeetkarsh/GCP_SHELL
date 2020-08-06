@@ -114,8 +114,6 @@ switch-to () {
     return 1
   fi
 
-'*Jeet
-
   if [[ "${GPUS_IN_ZONES[$zone]}" == "" ]]; then
     echo ""
     echo "Fastai shell does not support the zone: '$zone'"
