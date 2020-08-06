@@ -101,8 +101,6 @@ list-zones () {
   echo ""
 }
 
-Jeet'
-
 switch-to () {
   zone=$1
 
