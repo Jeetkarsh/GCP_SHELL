@@ -244,13 +244,6 @@ start () {
   echo "Current zone: $current_zone"
   echo "Run one of the following commands:"
   echo ""
-
-'Jeet
-  gpus=(${GPUS_IN_ZONES[$current_zone]})
-  for gpu in ${gpus[@]}; do
-    echo " * fastai $gpu ($gpu gpu, ${SYSTEM_FOR_GPU[$gpu]} - \$${PRICE_FOR_GPU[$gpu]}/hour)"
-  done
-Jeet'
   echo " * fastai nogpu (1cpu, 3.75GB RAM - \$0.02/hour)"
   echo ""
 
