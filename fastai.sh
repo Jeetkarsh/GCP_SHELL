@@ -98,9 +98,6 @@ list-zones () {
   echo ""
   echo "Current zone: $current_zone"
   echo ""
-  for z in "${!GPUS_IN_ZONES[@]}"; do
-    echo " * $z (available gpus: ${GPUS_IN_ZONES[$z]})"
-  done
   echo ""
 }
 
