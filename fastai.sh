@@ -36,7 +36,7 @@ declare -A SYSTEM_FOR_GPU=(
 )
 test-zone () {
   zone=$1
-#Jeet  gpu=$2
+#Jeetgpu=$2
 
   set +e
   count=$(gcloud compute --project=$DEVSHELL_PROJECT_ID instances list | grep -c zone-tester)
@@ -48,30 +48,6 @@ test-zone () {
     gcloud compute --project=$DEVSHELL_PROJECT_ID -q instances delete zone-tester --zone $zone_for_exiting
   fi
 
-'#Jeet
-
-  echo "Creating zone-tester instance for zone: $zone with GPU: $gpu"
-  gcloud compute instances create zone-tester \
-      --project=$DEVSHELL_PROJECT_ID \
-      --zone=$zone \
-      --subnet=fastai-net \
-      --network-tier=PREMIUM \
-      --machine-type="n1-highcpu-4" \
-      --accelerator="type=nvidia-tesla-$gpu,count=1" \
-      --image-family="pytorch-latest-gpu" \
-      --image-project=deeplearning-platform-release \
-      --maintenance-policy=TERMINATE \
-      --boot-disk-size=30GB \
-      --boot-disk-type=pd-ssd \
-      --boot-disk-device-name=zone-tester
-
-  echo ""
-  echo "The zone: $zone has enough resources for the $gpu GPU."
-  echo ""
-
-  echo "Deleting zone-tester instance"
-  gcloud compute --project=$DEVSHELL_PROJECT_ID -q instances delete zone-tester --zone=$zone
-#Jeet'
 }
 
 create_snapshot () {
@@ -92,41 +68,6 @@ create_disk_from_snapshot () {
   gcloud compute --project=$DEVSHELL_PROJECT_ID disks create fastai-boot-1 --zone=$zone --type=pd-ssd --source-snapshot=fastai-boot-1 --size=50GB
 }
 
-'Jeet
-
-list-zones () {
-  echo ""
-  echo "Current zone: $current_zone"
-  echo ""
-  echo ""
-}
-
-switch-to () {
-  zone=$1
-
-  if [[ "$zone" == "" ]]; then
-    echo ""
-    echo "Specify the zone as 'fastai switch-to <zone>'"
-    echo "
-    "
-    return 1
-  fi
-
-  if [[ "${GPUS_IN_ZONES[$zone]}" == "" ]]; then
-    echo ""
-    echo "Fastai shell does not support the zone: '$zone'"
-    echo "Use one of the following zones:"
-    echo ""
-
-    for z in "${!GPUS_IN_ZONES[@]}"; do
-      echo " * $z"
-    done
-
-    echo ""
-
-    return 1
-  fi
-Jeet'
   echo "Stop the current instance, if exists"
   stop
 
